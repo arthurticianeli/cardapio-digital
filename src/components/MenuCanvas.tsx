@@ -7,6 +7,11 @@ interface MenuCanvasProps {
   menu: Menu
 }
 
+// Função auxiliar para processar descrições
+const getDescriptionWords = (description: string): string[] => {
+  return (description || '').split(' ').filter(word => word.trim() !== '')
+}
+
 const MenuCanvas: React.FC<MenuCanvasProps> = ({ menu }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -85,7 +90,8 @@ const MenuCanvas: React.FC<MenuCanvasProps> = ({ menu }) => {
       
       // Primeiro, calcular altura de cada item baseado na descrição
       menu.menuItems.forEach((item) => {
-        const words = item.description.split(' ')
+        const description = item.description || ''
+        const words = getDescriptionWords(description)
         const maxWidth = contentWidth - 250
         let line = ''
         let lineCount = 0
@@ -139,7 +145,8 @@ const MenuCanvas: React.FC<MenuCanvasProps> = ({ menu }) => {
         const itemY = currentY
 
         // Calcular quantas linhas a descrição terá (máximo 2)
-        const words = item.description.split(' ')
+        const description = item.description || ''
+        const words = getDescriptionWords(description)
         const maxWidth = contentWidth - 250
         let line = ''
         let lineCount = 0
@@ -190,7 +197,7 @@ const MenuCanvas: React.FC<MenuCanvasProps> = ({ menu }) => {
 
         // Preço
         ctx.font = 'bold 20px Arial, sans-serif'
-        ctx.fillStyle = '#d32f2f'
+        ctx.fillStyle = '#003399'
         ctx.textAlign = 'right'
         ctx.fillText(formatPrice(item.price), contentStartX + contentWidth - 25, itemY + 25)
 
@@ -229,7 +236,7 @@ const MenuCanvas: React.FC<MenuCanvasProps> = ({ menu }) => {
       
       ctx.font = 'bold 30px Arial, sans-serif'
       ctx.fillStyle = '#ff9800' // Laranja para destaque
-      ctx.fillText(`${menu.whatsappOrderDay} ${menu.whatsappOrderTime}`, canvasWidth / 2.7, footerStartY + 115)
+      ctx.fillText(`${menu.whatsappOrderDay} ${menu.whatsappOrderTime}h`, canvasWidth / 2.7, footerStartY + 115)
     }
     
     drawMenu()
@@ -239,8 +246,28 @@ const MenuCanvas: React.FC<MenuCanvasProps> = ({ menu }) => {
     const canvas = canvasRef.current
     if (!canvas) return
 
+    // Garantir que createdAt seja um objeto Date válido
+    let date: Date
+    try {
+      if (menu.createdAt instanceof Date) {
+        date = menu.createdAt
+      } else {
+        date = new Date(menu.createdAt)
+      }
+      
+      // Verificar se a data é válida
+      if (isNaN(date.getTime())) {
+        date = new Date() // Usar data atual se inválida
+      }
+    } catch (error) {
+      console.warn('Erro ao processar data do menu, usando data atual:', error)
+      date = new Date()
+    }
+
+    const dateString = date.toISOString().split('T')[0]
+
     const link = document.createElement('a')
-    link.download = `cardapio-${menu.createdAt.toISOString().split('T')[0]}.png`
+    link.download = `cardapio-${dateString}.png`
     link.href = canvas.toDataURL('image/png', 1.0)
     document.body.appendChild(link)
     link.click()

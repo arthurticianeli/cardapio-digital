@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react'
 import MenuForm from '@/components/MenuForm'
 import MenuCanvas from '@/components/MenuCanvas'
 import ItemsManagement from '@/components/ItemsManagement'
+import Popover from '@/components/Popover'
+import { usePopover } from '@/hooks/usePopover'
 import { Menu } from '@/types/menu'
 
 export default function Home() {
@@ -12,6 +14,14 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('create')
   const [isLoading, setIsLoading] = useState(true)
   const [notification, setNotification] = useState<string | null>(null)
+  
+  // Hook do popover
+  const { 
+    popoverState, 
+    hidePopover, 
+    showSuccess, 
+    showError
+  } = usePopover()
 
   const loadMenu = async () => {
     setIsLoading(true)
@@ -72,7 +82,7 @@ export default function Home() {
         setPreviewMenu(savedMenu)
         
         // Mostra notificação de sucesso
-        setNotification('Cardápio salvo com sucesso!')
+        showSuccess('Sucesso!', 'Cardápio salvo com sucesso!')
         setTimeout(() => setNotification(null), 3000)
       } else {
         const errorData = await response.json()
@@ -81,7 +91,7 @@ export default function Home() {
       
     } catch (error) {
       console.error('Erro ao salvar menu:', error)
-      alert('Erro ao salvar o cardápio. Tente novamente.')
+      showError('Erro!', 'Erro ao salvar o cardápio. Tente novamente.')
     }
   }
 
@@ -218,6 +228,17 @@ export default function Home() {
           )}
         </div>
       </main>
+
+      {/* Popover para notificações */}
+      <Popover
+        type={popoverState.type}
+        title={popoverState.title}
+        message={popoverState.message}
+        isVisible={popoverState.isVisible}
+        onClose={hidePopover}
+        onConfirm={popoverState.onConfirm}
+        onCancel={popoverState.onCancel}
+      />
     </div>
   )
 }

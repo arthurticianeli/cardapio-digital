@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { Item } from '@/types/item'
 import { Plus, Trash2, Save, Edit3, X } from 'lucide-react'
+import Popover from '@/components/Popover'
+import { usePopover } from '@/hooks/usePopover'
 
 // Tipo para o formulário com preço como string para máscara
 interface ItemFormState {
@@ -24,6 +26,15 @@ const ItemsManagement: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingItem, setEditingItem] = useState<Item | null>(null)
   const [formData, setFormData] = useState<ItemFormState>(INITIAL_FORM_DATA)
+  
+  // Hook do popover
+  const { 
+    popoverState, 
+    hidePopover, 
+    showSuccess, 
+    showError, 
+    showConfirm 
+  } = usePopover()
 
   const fetchItems = useCallback(async () => {
     try {
@@ -117,13 +128,16 @@ const ItemsManagement: React.FC = () => {
       if (response.ok) {
         await fetchItems()
         closeModal()
-        alert(editingItem ? 'Item atualizado com sucesso!' : 'Item criado com sucesso!')
+        showSuccess(
+          'Sucesso!', 
+          editingItem ? 'Item atualizado com sucesso!' : 'Item criado com sucesso!'
+        )
       } else {
         throw new Error('Erro ao salvar item')
       }
     } catch (error) {
       console.error('Erro ao salvar item:', error)
-      alert('Erro ao salvar item. Tente novamente.')
+      showError('Erro!', 'Erro ao salvar item. Tente novamente.')
     }
   }
 
@@ -139,23 +153,27 @@ const ItemsManagement: React.FC = () => {
   }
 
   const handleDelete = async (id: string) => {
-    if (confirm('Tem certeza que deseja excluir este item?')) {
-      try {
-        const response = await fetch(`/api/items/${id}`, {
-          method: 'DELETE'
-        })
-        
-        if (response.ok) {
-          await fetchItems()
-          alert('Item excluído com sucesso!')
-        } else {
-          throw new Error('Erro ao excluir item')
+    showConfirm(
+      'Confirmar Exclusão',
+      'Tem certeza que deseja excluir este item? Esta ação não pode ser desfeita.',
+      async () => {
+        try {
+          const response = await fetch(`/api/items/${id}`, {
+            method: 'DELETE'
+          })
+          
+          if (response.ok) {
+            await fetchItems()
+            showSuccess('Sucesso!', 'Item excluído com sucesso!')
+          } else {
+            throw new Error('Erro ao excluir item')
+          }
+        } catch (error) {
+          console.error('Erro ao excluir item:', error)
+          showError('Erro!', 'Erro ao excluir item. Tente novamente.')
         }
-      } catch (error) {
-        console.error('Erro ao excluir item:', error)
-        alert('Erro ao excluir item. Tente novamente.')
       }
-    }
+    )
   }
 
   const openCreateModal = () => {
@@ -298,7 +316,7 @@ const ItemsManagement: React.FC = () => {
                 {/* Descrição */}
                 <div>
                   <label htmlFor="item-description" className="block text-sm font-bold text-gray-800 mb-3">
-                    Descrição
+                    Descrição (Opcional)
                   </label>
                   <textarea
                     id="item-description"
@@ -308,7 +326,6 @@ const ItemsManagement: React.FC = () => {
                     rows={3}
                     className="w-full px-4 py-3 border-2 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none bg-white text-gray-900 font-medium placeholder-gray-600 shadow-sm"
                     placeholder="Descreva os ingredientes e características do item..."
-                    required
                   />
                 </div>
 
@@ -369,6 +386,17 @@ const ItemsManagement: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Popover para notificações */}
+      <Popover
+        type={popoverState.type}
+        title={popoverState.title}
+        message={popoverState.message}
+        isVisible={popoverState.isVisible}
+        onClose={hidePopover}
+        onConfirm={popoverState.onConfirm}
+        onCancel={popoverState.onCancel}
+      />
     </div>
   )
 }

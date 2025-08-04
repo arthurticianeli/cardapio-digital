@@ -62,16 +62,16 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
       // Remove tudo que não for número ou vírgula/ponto
       let cleanValue = value.replace(/[^\d,.]/g, '')
       
-      // Substitui vírgula por ponto
-      cleanValue = cleanValue.replace(',', '.')
+      // Substitui ponto por vírgula para manter a formatação brasileira
+      cleanValue = cleanValue.replace('.', ',')
       
       // Limita a 2 casas decimais
-      const parts = cleanValue.split('.')
+      const parts = cleanValue.split(',')
       if (parts.length > 2) {
-        cleanValue = parts[0] + '.' + parts[1]
+        cleanValue = parts[0] + ',' + parts[1]
       }
       if (parts[1] && parts[1].length > 2) {
-        cleanValue = parts[0] + '.' + parts[1].substring(0, 2)
+        cleanValue = parts[0] + ',' + parts[1].substring(0, 2)
       }
       
       setFormData(prev => ({
@@ -278,29 +278,44 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
                 Nenhum item cadastrado. Cadastre itens primeiro na aba Gerenciar Itens.
               </div>
             ) : (
-              items.sort((a, b) => b.price - a.price).map((item) => {
+              items.toSorted((a, b) => b.price - a.price).map((item) => {
                 let cardStyle = 'border-gray-400 bg-white hover:border-gray-500 hover:shadow-md'
                 
                 if (!item.isActive) {
                   cardStyle = 'border-gray-300 bg-gray-100 opacity-60 cursor-not-allowed'
                 } else if (selectedItemIds.includes(item.id)) {
-                  cardStyle = 'border-blue-600 bg-blue-50 shadow-md'
+                  cardStyle = 'border-blue-600 bg-blue-50 shadow-lg ring-1 ring-blue-200'
                 }
 
                 return (
-                <div
+                <button
                   key={item.id}
-                  className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-200 shadow-sm ${cardStyle}`}
-                  onClick={() => handleItemToggle(item.id)}
+                  type="button"
+                  className={`w-full text-left border-2 rounded-lg p-4 transition-all duration-200 shadow-sm ${cardStyle} ${
+                    item.isActive ? 'cursor-pointer hover:shadow-lg' : 'cursor-not-allowed'
+                  }`}
+                  onClick={() => item.isActive && handleItemToggle(item.id)}
+                  disabled={!item.isActive}
+                  aria-label={`${selectedItemIds.includes(item.id) ? 'Remover' : 'Adicionar'} ${item.name} do cardápio`}
                 >
                   <div className="flex items-start space-x-3">
-                    <input
-                      type="checkbox"
-                      checked={selectedItemIds.includes(item.id)}
-                      onChange={() => handleItemToggle(item.id)}
-                      disabled={!item.isActive}
-                      className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-400 rounded focus:ring-blue-500 disabled:opacity-50"
-                    />
+                    <div className="flex items-center justify-center p-1 -m-1 rounded-md hover:bg-blue-50 transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={selectedItemIds.includes(item.id)}
+                        onChange={(e) => {
+                          e.stopPropagation() // Impede propagação do evento
+                          if (item.isActive) {
+                            handleItemToggle(item.id)
+                          }
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation() // Impede propagação do evento
+                        }}
+                        disabled={!item.isActive}
+                        className="mt-1 w-5 h-5 text-blue-600 bg-white border-2 border-gray-400 rounded-md focus:ring-blue-500 focus:ring-2 disabled:opacity-50 cursor-pointer hover:border-blue-500 transition-all duration-200 hover:scale-110"
+                      />
+                    </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center space-x-2">
@@ -322,7 +337,7 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </button>
                 )
               })
             )}
@@ -333,7 +348,7 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
             <div className="mt-6 p-4 bg-gray-100 rounded-lg border-2 border-gray-300">
               <h4 className="font-bold text-gray-800 mb-3">Itens Selecionados ({selectedItems.length}):</h4>
               <div className="flex flex-wrap gap-2">
-                {selectedItems.sort((a, b) => b.price - a.price).map((item) => (
+                {selectedItems.toSorted((a, b) => b.price - a.price).map((item) => (
                   <span
                     key={item.id}
                     className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-200 text-blue-800"
