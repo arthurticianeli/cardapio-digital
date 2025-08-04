@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "name": "Feijoada Completa",
+    "description": "Feijoada tradicional com arroz, couve e farofa",
+    "price": 25.9,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "2",
+    "name": "Lasanha à Bolonhesa",
+    "description": "Lasanha caseira com molho bolonhesa",
+    "price": 22.5,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "3",
+    "name": "Parmegiana de Frango",
+    "description": "Filé empanado com molho e queijo",
+    "price": 28,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "4",
+    "name": "Strogonoff de Carne",
+    "description": "Strogonoff cremoso com batata palha",
+    "price": 24.9,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "5",
+    "name": "Salmão Grelhado",
+    "description": "Salmão grelhado com legumes e purê",
+    "price": 35,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "6",
+    "name": "Picanha na Chapa",
+    "description": "Picanha suculenta com farofa e vinagrete",
+    "price": 32.9,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "7",
+    "name": "Risotto de Camarão",
+    "description": "Risotto cremoso com camarões frescos",
+    "price": 29.9,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "8",
+    "name": "Hambúrguer Artesanal",
+    "description": "Hambúrguer 180g com queijo e bacon",
+    "price": 26.5,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.939Z"
+  },
+  {
+    "id": "9",
+    "name": "Moqueca de Peixe",
+    "description": "Moqueca capixaba com leite de coco",
+    "price": 27.9,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.939Z",
+    "updatedAt": "2025-08-04T21:23:17.940Z"
+  },
+  {
+    "id": "10",
+    "name": "Bobó de Camarão",
+    "description": "Bobó baiano com camarões grandes",
+    "price": 31.5,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.940Z",
+    "updatedAt": "2025-08-04T21:23:17.940Z"
+  },
+  {
+    "id": "11",
+    "name": "Pizza Margherita",
+    "description": "Pizza clássica com molho de tomate, mussarela e manjericão",
+    "price": 28.9,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.940Z",
+    "updatedAt": "2025-08-04T21:23:17.940Z"
+  },
+  {
+    "id": "12",
+    "name": "Salada Caesar",
+    "description": "Salada com alface romana, croutons e molho caesar",
+    "price": 18.5,
+    "isActive": true,
+    "createdAt": "2025-08-04T21:23:17.940Z",
+    "updatedAt": "2025-08-04T21:23:17.940Z"
+  }
+]

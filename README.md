@@ -1,36 +1,189 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍽️ Gerador de Cardápio Digital
 
-## Getting Started
+Sistema completo desenvolvido em Next.js para criar cardápios digitais automatizados para restaurantes. Permite que funcionários alimentem informações através de um painel administrativo e gerem imagens PNG/JPG profissionais para divulgação.
 
-First, run the development server:
+## 🚀 Deploy na Vercel
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Pré-requisitos
+1. Conta na [Vercel](https://vercel.com)
+2. Conta no [Neon](https://neon.tech) ou outro provedor PostgreSQL
+3. Repositório GitHub com o código
+
+### Passos para Deploy
+
+#### 1. Configurar Banco de Dados
+1. Crie um banco PostgreSQL no [Neon.tech](https://neon.tech) (gratuito)
+2. Copie a string de conexão `DATABASE_URL`
+
+#### 2. Deploy na Vercel
+1. Acesse [vercel.com](https://vercel.com) e conecte sua conta GitHub
+2. Importe este repositório
+3. Configure as variáveis de ambiente:
+   ```
+   DATABASE_URL=sua_string_de_conexao_postgresql
+   NEXTAUTH_SECRET=uma_chave_secreta_aleatoria
+   NEXTAUTH_URL=https://seu-dominio.vercel.app
+   ```
+
+#### 3. Build e Deploy Automático
+- A Vercel executará automaticamente o processo de build configurado
+
+## ✨ Funcionalidades
+
+- **Painel Administrativo**: Interface intuitiva para criar e gerenciar cardápios
+- **Geração de Imagens**: Criação automática de imagens PNG/JPG para divulgação
+- **Layout Responsivo**: Adaptação automática baseada no número de itens do menu
+- **Pré-visualização**: Visualização em tempo real antes de salvar
+- **Campos Configuráveis**:
+  - Nome do cardápio
+  - Taxa de entrega
+  - Dia da semana para entrega
+  - Dia e horário limite para pedidos via WhatsApp  
+  - Número do WhatsApp
+  - Lista completa de pratos com descrição e preços
+
+## 🚀 Tecnologias
+
+- **Frontend**: Next.js 14 com App Router e TypeScript
+- **Styling**: Tailwind CSS
+- **Banco de dados**: PostgreSQL com Prisma ORM
+- **Geração de imagens**: HTML5 Canvas
+- **Deployment**: Vercel + Neon (PostgreSQL)
+
+## 📁 Estrutura do Projeto
+
+```
+├── src/
+│   ├── app/
+│   │   ├── api/menus/          # API routes para CRUD de cardápios
+│   │   └── page.tsx            # Página principal com tabs
+│   ├── components/
+│   │   ├── MenuForm.tsx        # Formulário para criar/editar cardápios
+│   │   └── MenuCanvas.tsx      # Componente para renderizar e gerar imagens
+│   ├── types/
+│   │   └── menu.ts             # Tipos TypeScript para cardápios
+│   └── lib/
+│       └── db.ts               # Configuração do Prisma
+├── prisma/
+│   └── schema.prisma           # Schema do banco de dados
+└── public/
+    └── fundo.jpg               # Imagem de fundo (substituir pela real)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Como usar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Instalação
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Clone o repositório
+git clone <url-do-repositorio>
+cd cardapio-digital
 
-## Learn More
+# Instale as dependências
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+# Configure o banco (opcional para desenvolvimento local)
+npx prisma migrate dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Execução
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Inicie o servidor de desenvolvimento
+npm run dev
 
-## Deploy on Vercel
+# Acesse http://localhost:3000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Uso da aplicação
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Criar Cardápio**: 
+   - Acesse a aba "Criar Cardápio"
+   - Preencha informações do restaurante e itens do menu
+   - Use "Pré-visualizar" para ver o resultado
+
+2. **Gerar Imagem**:
+   - Na pré-visualização, clique em "Baixar Imagem PNG"
+   - A imagem será baixada automaticamente
+
+3. **Gerenciar**:
+   - Use a aba "Gerenciar Cardápios" para ver cardápios salvos
+   - Edite ou visualize cardápios existentes
+
+## 🎨 Customização
+
+### Imagem de Fundo
+- Coloque sua imagem de fundo em `/public/fundo.jpg` 
+- Formato recomendado: 1280x1277px
+- O layout se adapta automaticamente
+
+### Estilos
+- Edite `src/components/MenuCanvas.tsx` para personalizar cores e fontes
+- Modifique `src/components/MenuForm.tsx` para ajustar o formulário
+- Use Tailwind CSS para estilos da interface
+
+### Layout
+- O sistema é responsivo e centraliza automaticamente os itens
+- Suporta qualquer quantidade de pratos
+- Layout otimizado para redes sociais
+
+## 🗄️ Banco de Dados
+
+### Modelos
+
+**Menu**
+- `id`: Identificador único
+- `name`: Nome do cardápio
+- `deliveryTax`: Taxa de entrega
+- `deliveryDay`: Dia da semana para entrega
+- `whatsappOrderDay`: Dia para pedidos WhatsApp
+- `whatsappOrderTime`: Horário limite pedidos
+- `whatsappNumber`: Número do WhatsApp
+- `isActive`: Status ativo/inativo
+- `createdAt/updatedAt`: Timestamps
+
+**MenuItem**
+- `id`: Identificador único
+- `name`: Nome do prato
+- `description`: Descrição do prato
+- `price`: Preço
+- `order`: Ordem de exibição
+- `menuId`: Referência ao menu
+
+## 🚀 Deploy
+
+### Vercel + Neon
+1. Faça push para o GitHub
+2. Conecte seu repositório na Vercel
+3. Configure as variáveis de ambiente:
+   ```
+   DATABASE_URL="sua-string-postgresql-neon"
+   ```
+4. Deploy automático!
+
+### Outras plataformas
+O projeto é compatível com qualquer plataforma que suporte Next.js e PostgreSQL.
+
+## 📝 API Endpoints
+
+- `GET /api/menus` - Lista todos os cardápios
+- `POST /api/menus` - Cria novo cardápio
+- `GET /api/menus/[id]` - Busca cardápio específico
+- `PUT /api/menus/[id]` - Atualiza cardápio
+- `DELETE /api/menus/[id]` - Remove cardápio
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch (`git checkout -b feature/nova-funcionalidade`)
+3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+Desenvolvido com ❤️ para automatizar a criação de cardápios digitais!
