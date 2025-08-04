@@ -299,7 +299,7 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
                   aria-label={`${selectedItemIds.includes(item.id) ? 'Remover' : 'Adicionar'} ${item.name} do cardápio`}
                 >
                   <div className="flex items-start space-x-3">
-                    <div className="flex items-center justify-center p-1 -m-1 rounded-md hover:bg-blue-50 transition-colors">
+                    <div className="flex items-center justify-center p-1 m-1 rounded-md hover:bg-blue-50 transition-colors">
                       <input
                         type="checkbox"
                         checked={selectedItemIds.includes(item.id)}
@@ -328,8 +328,8 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
                             </span>
                           )}
                         </div>
-                        <span className={`font-bold text-sm ${!item.isActive ? 'text-gray-500' : 'text-green-700'}`}>
-                          R$ {item.price.toFixed(2)}
+                        <span className={`font-bold text-sm text-nowrap ${!item.isActive ? 'text-gray-500' : 'text-green-700'}`}>
+                          {`R$ ${item.price.toFixed(2)}`}
                         </span>
                       </div>
                       <p className={`text-sm ${!item.isActive ? 'text-gray-400' : 'text-gray-700'} font-medium`}>
