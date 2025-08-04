@@ -12,17 +12,25 @@ Sistema completo desenvolvido em Next.js para criar cardápios digitais automati
 ### Passos para Deploy
 
 #### 1. Configurar Banco de Dados
-1. Crie um banco PostgreSQL no [Neon.tech](https://neon.tech) (gratuito)
-2. Copie a string de conexão `DATABASE_URL`
+1. **Para produção (Vercel)**: Crie um banco PostgreSQL
+   - **Neon.tech** (recomendado): https://neon.tech - gratuito com até 10GB
+   - **Supabase**: https://supabase.com - gratuito com até 500MB
+   - **Vercel Postgres**: Disponível no dashboard da Vercel
+2. Copie a string de conexão `DATABASE_URL` (exemplo: `postgresql://user:pass@host:5432/db`)
 
 #### 2. Deploy na Vercel
 1. Acesse [vercel.com](https://vercel.com) e conecte sua conta GitHub
 2. Importe este repositório
-3. Configure as variáveis de ambiente:
+3. **Configure as variáveis de ambiente** no dashboard da Vercel:
    ```
-   DATABASE_URL=sua_string_de_conexao_postgresql
-   NEXTAUTH_SECRET=uma_chave_secreta_aleatoria
-   NEXTAUTH_URL=https://seu-dominio.vercel.app
+   DATABASE_URL=postgresql://user:pass@host:5432/database
+   ```
+4. **Importante**: Certifique-se de que o arquivo `prisma/schema.prisma` esteja configurado para PostgreSQL:
+   ```prisma
+   datasource db {
+     provider = "postgresql"
+     url      = env("DATABASE_URL")
+   }
    ```
 
 #### 3. Build e Deploy Automático
