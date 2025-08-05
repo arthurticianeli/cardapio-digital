@@ -132,7 +132,7 @@ const Popover: React.FC<PopoverProps> = ({
   const colors = getColors()
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
       {/* Overlay */}
       <button 
         className="absolute inset-0 bg-transparent transition-opacity duration-300"
@@ -148,7 +148,7 @@ const Popover: React.FC<PopoverProps> = ({
       {/* Popover */}
       <div 
         className={`
-          relative w-full max-w-md mx-auto bg-white rounded-xl shadow-2xl border-2 
+          relative w-full max-w-sm sm:max-w-md mx-auto bg-white rounded-xl shadow-2xl border-2 
           transform transition-all duration-300 ease-out
           ${colors.bg} ${colors.border}
           ${isAnimating 
@@ -158,10 +158,10 @@ const Popover: React.FC<PopoverProps> = ({
         `}
       >
         {/* Cabeçalho */}
-        <div className="flex items-center justify-between p-6 pb-4">
-          <div className="flex items-center space-x-3">
+        <div className="flex items-center justify-between p-4 sm:p-6 pb-3 sm:pb-4">
+          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
             {getIcon()}
-            <h3 className={`text-lg font-bold ${colors.title}`}>
+            <h3 className={`text-base sm:text-lg font-bold ${colors.title} truncate`}>
               {title}
             </h3>
           </div>
@@ -169,7 +169,7 @@ const Popover: React.FC<PopoverProps> = ({
           {type !== 'confirm' && (
             <button
               onClick={handleClose}
-              className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+              className="p-1 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0 ml-2"
             >
               <X className="w-5 h-5 text-gray-500" />
             </button>
@@ -177,7 +177,7 @@ const Popover: React.FC<PopoverProps> = ({
         </div>
 
         {/* Conteúdo */}
-        <div className="px-6 pb-6">
+        <div className="px-4 sm:px-6 pb-4 sm:pb-6">
           <p className={`text-sm leading-relaxed ${colors.message}`}>
             {message}
           </p>
@@ -185,16 +185,16 @@ const Popover: React.FC<PopoverProps> = ({
 
         {/* Botões de ação (apenas para confirmação) */}
         {type === 'confirm' && (
-          <div className="flex justify-end space-x-3 px-6 pb-6 pt-2 border-t border-gray-100">
+          <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 px-4 sm:px-6 pb-4 sm:pb-6 pt-2 border-t border-gray-100">
             <button
               onClick={handleCancel}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors active:scale-95"
             >
               Cancelar
             </button>
             <button
               onClick={handleConfirm}
-              className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+              className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors active:scale-95"
             >
               Confirmar
             </button>

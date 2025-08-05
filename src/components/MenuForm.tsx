@@ -173,20 +173,20 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
   const selectedItems = items.filter(item => selectedItemIds.includes(item.id))
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-xl border-2 border-gray-300">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-gray-300 pb-3">
+    <div className="w-full max-w-4xl mx-auto p-3 sm:p-6 bg-white rounded-lg shadow-xl border-2 border-gray-300">
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 border-b-2 border-gray-300 pb-3 text-center sm:text-left">
         {menu ? 'Editar Cardápio' : 'Criar Novo Cardápio'}
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         {/* Informações básicas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <label htmlFor="deliveryTax" className="block text-sm font-bold text-gray-800 mb-3">
+            <label htmlFor="deliveryTax" className="block text-sm font-bold text-gray-800 mb-2 sm:mb-3">
               Taxa de Entrega (R$)
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700 font-bold">R$</span>
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700 font-bold text-sm sm:text-base">R$</span>
               <input
                 id="deliveryTax"
                 type="text"
@@ -194,14 +194,14 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
                 value={formData.deliveryTax}
                 onChange={handleInputChange}
                 placeholder="0,00"
-                className="w-full pl-10 pr-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium placeholder-gray-600 shadow-sm"
+                className="w-full pl-10 pr-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium placeholder-gray-600 shadow-sm text-sm sm:text-base"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="deliveryDay" className="block text-sm font-bold text-gray-800 mb-3">
+            <label htmlFor="deliveryDay" className="block text-sm font-bold text-gray-800 mb-2 sm:mb-3">
               Dia da Entrega
             </label>
             <select
@@ -209,7 +209,7 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
               name="deliveryDay"
               value={formData.deliveryDay}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium shadow-sm"
+              className="w-full px-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium shadow-sm text-sm sm:text-base"
               required
             >
               <option value="" className="text-gray-600">Selecione o dia</option>
@@ -224,7 +224,7 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
           </div>
 
           <div>
-            <label htmlFor="whatsappOrderDay" className="block text-sm font-bold text-gray-800 mb-3">
+            <label htmlFor="whatsappOrderDay" className="block text-sm font-bold text-gray-800 mb-2 sm:mb-3">
               Dia dos Pedidos WhatsApp
             </label>
             <select
@@ -232,7 +232,7 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
               name="whatsappOrderDay"
               value={formData.whatsappOrderDay}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium shadow-sm"
+              className="w-full px-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium shadow-sm text-sm sm:text-base"
               required
             >
               <option value="" className="text-gray-600">Selecione o dia</option>
@@ -247,7 +247,7 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
           </div>
 
           <div>
-            <label htmlFor="whatsappOrderTime" className="block text-sm font-bold text-gray-800 mb-3">
+            <label htmlFor="whatsappOrderTime" className="block text-sm font-bold text-gray-800 mb-2 sm:mb-3">
               Horário Limite Pedidos
             </label>
             <input
@@ -256,25 +256,25 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
               name="whatsappOrderTime"
               value={formData.whatsappOrderTime}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium shadow-sm"
+              className="w-full px-4 py-3 border-2 border-gray-400 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-gray-900 font-medium shadow-sm text-sm sm:text-base"
               required
             />
           </div>
         </div>
 
         {/* Seleção de Itens */}
-        <div className="border-t-2 border-gray-200 pt-8">
-          <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-800">Selecionar Itens do Cardápio</h3>
-            <p className="text-sm font-bold text-gray-800 mt-2">
+        <div className="border-t-2 border-gray-200 pt-6 sm:pt-8">
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-800">Selecionar Itens do Cardápio</h3>
+            <p className="text-xs sm:text-sm font-bold text-gray-800 mt-2">
               {selectedItemIds.length}/10 itens selecionados • {items.filter(item => item.isActive).length} itens ativos disponíveis • {items.length} itens no total
               {selectedItemIds.length >= 10 && ' (Máximo atingido)'}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-80 sm:max-h-96 overflow-y-auto">
             {items.length === 0 ? (
-              <div className="col-span-2 text-center py-8 text-gray-700 font-medium">
+              <div className="col-span-1 sm:col-span-2 text-center py-6 sm:py-8 text-gray-700 font-medium">
                 Nenhum item cadastrado. Cadastre itens primeiro na aba Gerenciar Itens.
               </div>
             ) : (
@@ -291,48 +291,48 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
                 <button
                   key={item.id}
                   type="button"
-                  className={`w-full text-left border-2 rounded-lg p-4 transition-all duration-200 shadow-sm ${cardStyle} ${
-                    item.isActive ? 'cursor-pointer hover:shadow-lg' : 'cursor-not-allowed'
+                  className={`w-full text-left border-2 rounded-lg p-3 sm:p-4 transition-all duration-200 shadow-sm ${cardStyle} ${
+                    item.isActive ? 'cursor-pointer hover:shadow-lg active:scale-95' : 'cursor-not-allowed'
                   }`}
                   onClick={() => item.isActive && handleItemToggle(item.id)}
                   disabled={!item.isActive}
                   aria-label={`${selectedItemIds.includes(item.id) ? 'Remover' : 'Adicionar'} ${item.name} do cardápio`}
                 >
-                  <div className="flex items-start space-x-3">
+                  <div className="flex items-start space-x-2 sm:space-x-3">
                     <div className="flex items-center justify-center p-1 m-1 rounded-md hover:bg-blue-50 transition-colors">
                       <input
                         type="checkbox"
                         checked={selectedItemIds.includes(item.id)}
                         onChange={(e) => {
-                          e.stopPropagation() // Impede propagação do evento
+                          e.stopPropagation()
                           if (item.isActive) {
                             handleItemToggle(item.id)
                           }
                         }}
                         onClick={(e) => {
-                          e.stopPropagation() // Impede propagação do evento
+                          e.stopPropagation()
                         }}
                         disabled={!item.isActive}
-                        className="mt-1 w-5 h-5 text-blue-600 bg-white border-2 border-gray-400 rounded-md focus:ring-blue-500 focus:ring-2 disabled:opacity-50 cursor-pointer hover:border-blue-500 transition-all duration-200 hover:scale-110"
+                        className="mt-1 w-4 h-4 sm:w-5 sm:h-5 text-blue-600 bg-white border-2 border-gray-400 rounded-md focus:ring-blue-500 focus:ring-2 disabled:opacity-50 cursor-pointer hover:border-blue-500 transition-all duration-200 hover:scale-110"
                       />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="flex items-center space-x-2">
-                          <h4 className={`font-bold ${!item.isActive ? 'text-gray-500' : 'text-gray-800'}`}>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-start mb-1 sm:mb-2">
+                        <div className="flex items-center space-x-2 min-w-0 flex-1">
+                          <h4 className={`font-bold text-sm sm:text-base truncate ${!item.isActive ? 'text-gray-500' : 'text-gray-800'}`}>
                             {item.name}
                           </h4>
                           {!item.isActive && (
-                            <span className="px-2 py-1 text-xs font-semibold bg-red-100 text-red-800 rounded-full">
+                            <span className="px-2 py-1 text-xs font-semibold bg-red-100 text-red-800 rounded-full whitespace-nowrap">
                               INATIVO
                             </span>
                           )}
                         </div>
-                        <span className={`font-bold text-sm text-nowrap ${!item.isActive ? 'text-gray-500' : 'text-green-700'}`}>
-                          {`R$ ${item.price.toFixed(2)}`}
+                        <span className={`font-bold text-xs sm:text-sm text-nowrap ml-2 ${!item.isActive ? 'text-gray-500' : 'text-green-700'}`}>
+                          R$ {item.price.toFixed(2).replace('.', ',')}
                         </span>
                       </div>
-                      <p className={`text-sm ${!item.isActive ? 'text-gray-400' : 'text-gray-700'} font-medium`}>
+                      <p className={`text-xs sm:text-sm ${!item.isActive ? 'text-gray-400' : 'text-gray-700'} font-medium line-clamp-2`}>
                         {item.description}
                       </p>
                     </div>
@@ -345,15 +345,16 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
 
           {/* Itens Selecionados */}
           {selectedItems.length > 0 && (
-            <div className="mt-6 p-4 bg-gray-100 rounded-lg border-2 border-gray-300">
-              <h4 className="font-bold text-gray-800 mb-3">Itens Selecionados ({selectedItems.length}):</h4>
+            <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-gray-100 rounded-lg border-2 border-gray-300">
+              <h4 className="font-bold text-gray-800 mb-3 text-sm sm:text-base">Itens Selecionados ({selectedItems.length}):</h4>
               <div className="flex flex-wrap gap-2">
                 {selectedItems.toSorted((a, b) => b.price - a.price).map((item) => (
                   <span
                     key={item.id}
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-200 text-blue-800"
+                    className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold bg-blue-200 text-blue-800"
                   >
-                    {item.name} - R$ {item.price.toFixed(2)}
+                    <span className="truncate max-w-24 sm:max-w-none">{item.name}</span>
+                    <span className="ml-1 whitespace-nowrap">- R$ {item.price.toFixed(2).replace('.', ',')}</span>
                   </span>
                 ))}
               </div>
@@ -362,23 +363,23 @@ const MenuForm: React.FC<MenuFormProps> = ({ menu, onSave, onPreview }) => {
         </div>
 
         {/* Botões de ação */}
-        <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t-2 border-gray-200">
+        <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4 pt-6 sm:pt-8 border-t-2 border-gray-200">
           {onPreview && (
             <button
               type="button"
               onClick={handlePreview}
-              className="flex items-center justify-center space-x-2 px-8 py-4 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all duration-200 font-semibold border-2 border-purple-600 hover:border-purple-700 shadow-md hover:shadow-lg transform hover:scale-105"
+              className="flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-purple-600 text-white rounded-md hover:bg-purple-700 active:scale-95 transition-all duration-200 font-semibold border-2 border-purple-600 hover:border-purple-700 shadow-md hover:shadow-lg text-sm sm:text-base"
             >
-              <Eye size={18} />
+              <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               <span>Pré-visualizar</span>
             </button>
           )}
           
           <button
             type="submit"
-            className="flex items-center justify-center space-x-2 px-8 py-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 font-semibold border-2 border-blue-600 hover:border-blue-700 shadow-md hover:shadow-lg transform hover:scale-105"
+            className="flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 active:scale-95 transition-all duration-200 font-semibold border-2 border-blue-600 hover:border-blue-700 shadow-md hover:shadow-lg text-sm sm:text-base"
           >
-            <Save size={18} />
+            <Save size={16} className="sm:w-[18px] sm:h-[18px]" />
             <span>Salvar Cardápio</span>
           </button>
         </div>

@@ -193,37 +193,38 @@ const ItemsManagement: React.FC = () => {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Gerenciar Itens</h1>
+    <div className="p-3 sm:p-6 lg:p-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 space-y-4 sm:space-y-0">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Gerenciar Itens</h1>
         <button
           onClick={openCreateModal}
-          className="flex items-center space-x-2 px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all duration-200 font-semibold border-2 border-green-600 hover:border-green-700 shadow-md hover:shadow-lg transform hover:scale-105"
+          className="w-full sm:w-auto flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 active:scale-95 transition-all duration-200 font-semibold border-2 border-green-600 hover:border-green-700 shadow-md hover:shadow-lg text-sm sm:text-base"
         >
-          <Plus size={20} />
+          <Plus size={18} className="sm:w-5 sm:h-5" />
           <span>Novo Item</span>
         </button>
       </div>
 
-      {/* Lista de Itens */}
+      {/* Lista de Itens - Mobile: Cards, Desktop: Table */}
       <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-300">
-        <div className="overflow-x-auto">
+        {/* Versão Desktop (Table) */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-100 border-b-2 border-gray-300">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
+                <th className="px-4 lg:px-6 py-4 text-left text-xs lg:text-sm font-bold text-gray-800 uppercase tracking-wider">
                   Nome
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
+                <th className="px-4 lg:px-6 py-4 text-left text-xs lg:text-sm font-bold text-gray-800 uppercase tracking-wider">
                   Descrição
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
+                <th className="px-4 lg:px-6 py-4 text-left text-xs lg:text-sm font-bold text-gray-800 uppercase tracking-wider">
                   Preço
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
+                <th className="px-4 lg:px-6 py-4 text-left text-xs lg:text-sm font-bold text-gray-800 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
+                <th className="px-4 lg:px-6 py-4 text-left text-xs lg:text-sm font-bold text-gray-800 uppercase tracking-wider">
                   Ações
                 </th>
               </tr>
@@ -231,18 +232,18 @@ const ItemsManagement: React.FC = () => {
             <tbody className="bg-white divide-y divide-gray-300">
               {sortedItems.map((item) => (
                 <tr key={item.id} className="hover:bg-gray-100 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-bold text-gray-800">{item.name}</div>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 lg:px-6 py-4">
                     <div className="text-sm text-gray-700 max-w-xs truncate font-medium">{item.description}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-bold text-green-700">
                       R$ {item.price.toFixed(2).replace('.', ',')}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                       item.isActive 
                         ? 'bg-green-100 text-green-800' 
@@ -251,18 +252,18 @@ const ItemsManagement: React.FC = () => {
                       {item.isActive ? 'Ativo' : 'Inativo'}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex space-x-2">
                       <button
                         onClick={() => openEditModal(item)}
-                        className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded transition-all duration-200 border border-transparent hover:border-blue-200 shadow-sm hover:shadow-md transform hover:scale-105"
+                        className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded transition-all duration-200 border border-transparent hover:border-blue-200 shadow-sm hover:shadow-md active:scale-95"
                         title="Editar"
                       >
                         <Edit3 size={16} />
                       </button>
                       <button
                         onClick={() => handleDelete(item.id)}
-                        className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-all duration-200 border border-transparent hover:border-red-200 shadow-sm hover:shadow-md transform hover:scale-105"
+                        className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-all duration-200 border border-transparent hover:border-red-200 shadow-sm hover:shadow-md active:scale-95"
                         title="Excluir"
                       >
                         <Trash2 size={16} />
@@ -274,16 +275,70 @@ const ItemsManagement: React.FC = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Versão Mobile (Cards) */}
+        <div className="md:hidden">
+          {sortedItems.length === 0 ? (
+            <div className="p-6 text-center text-gray-500">
+              Nenhum item cadastrado ainda.
+            </div>
+          ) : (
+            <div className="divide-y divide-gray-200">
+              {sortedItems.map((item) => (
+                <div key={item.id} className="p-4 hover:bg-gray-50 transition-colors">
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex-1 min-w-0 mr-3">
+                      <h3 className="text-base font-bold text-gray-800 truncate">
+                        {item.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                        {item.description}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-base font-bold text-green-700 mb-1">
+                        R$ {item.price.toFixed(2).replace('.', ',')}
+                      </div>
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        item.isActive 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {item.isActive ? 'Ativo' : 'Inativo'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex justify-end space-x-2 mt-3">
+                    <button
+                      onClick={() => openEditModal(item)}
+                      className="flex items-center space-x-1 px-3 py-2 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded transition-all duration-200 border border-blue-200 active:scale-95"
+                    >
+                      <Edit3 size={14} />
+                      <span>Editar</span>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="flex items-center space-x-1 px-3 py-2 text-sm text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-all duration-200 border border-red-200 active:scale-95"
+                    >
+                      <Trash2 size={14} />
+                      <span>Excluir</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Modal de Criação/Edição */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 sm:p-4 z-50">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="p-4 sm:p-6">
               {/* Header do Modal */}
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-800">
+              <div className="flex justify-between items-center mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-800">
                   {editingItem ? 'Editar Item' : 'Novo Item'}
                 </h2>
                 <button
@@ -295,10 +350,10 @@ const ItemsManagement: React.FC = () => {
               </div>
 
               {/* Formulário */}
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 {/* Nome */}
                 <div>
-                  <label htmlFor="item-name" className="block text-sm font-bold text-gray-800 mb-3">
+                  <label htmlFor="item-name" className="block text-sm font-bold text-gray-800 mb-2 sm:mb-3">
                     Nome do Item
                   </label>
                   <input
@@ -307,7 +362,7 @@ const ItemsManagement: React.FC = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white text-gray-900 font-medium placeholder-gray-600 shadow-sm"
+                    className="w-full px-4 py-3 border-2 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white text-gray-900 font-medium placeholder-gray-600 shadow-sm text-sm sm:text-base"
                     placeholder="Ex: Hambúrguer Clássico"
                     required
                   />
@@ -315,7 +370,7 @@ const ItemsManagement: React.FC = () => {
 
                 {/* Descrição */}
                 <div>
-                  <label htmlFor="item-description" className="block text-sm font-bold text-gray-800 mb-3">
+                  <label htmlFor="item-description" className="block text-sm font-bold text-gray-800 mb-2 sm:mb-3">
                     Descrição (Opcional)
                   </label>
                   <textarea
@@ -324,25 +379,25 @@ const ItemsManagement: React.FC = () => {
                     value={formData.description}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 border-2 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none bg-white text-gray-900 font-medium placeholder-gray-600 shadow-sm"
+                    className="w-full px-4 py-3 border-2 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none bg-white text-gray-900 font-medium placeholder-gray-600 shadow-sm text-sm sm:text-base"
                     placeholder="Descreva os ingredientes e características do item..."
                   />
                 </div>
 
                 {/* Preço com Máscara */}
                 <div>
-                  <label htmlFor="item-price" className="block text-sm font-bold text-gray-800 mb-3">
+                  <label htmlFor="item-price" className="block text-sm font-bold text-gray-800 mb-2 sm:mb-3">
                     Preço
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-3 text-gray-700 font-bold">R$</span>
+                    <span className="absolute left-3 top-3 text-gray-700 font-bold text-sm sm:text-base">R$</span>
                     <input
                       id="item-price"
                       type="text"
                       name="price"
                       value={formData.price}
                       onChange={handleInputChange}
-                      className="w-full pl-12 pr-4 py-3 border-2 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white text-gray-900 font-medium placeholder-gray-600 shadow-sm"
+                      className="w-full pl-10 sm:pl-12 pr-4 py-3 border-2 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white text-gray-900 font-medium placeholder-gray-600 shadow-sm text-sm sm:text-base"
                       placeholder="0,00"
                       required
                     />
@@ -357,7 +412,7 @@ const ItemsManagement: React.FC = () => {
                     name="isActive"
                     checked={formData.isActive}
                     onChange={handleInputChange}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-400 rounded focus:ring-blue-500 focus:ring-2"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 bg-gray-100 border-gray-400 rounded focus:ring-blue-500 focus:ring-2"
                   />
                   <label htmlFor="item-active" className="text-sm font-bold text-gray-800">
                     Item Ativo
@@ -365,19 +420,19 @@ const ItemsManagement: React.FC = () => {
                 </div>
 
                 {/* Botões do Modal */}
-                <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+                <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 pt-4 sm:pt-6 border-t border-gray-200">
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-all duration-200 font-semibold border-2 border-gray-500 hover:border-gray-600 shadow-md hover:shadow-lg transform hover:scale-105"
+                    className="px-4 sm:px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 active:scale-95 transition-all duration-200 font-semibold border-2 border-gray-500 hover:border-gray-600 shadow-md hover:shadow-lg text-sm sm:text-base"
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 font-semibold border-2 border-blue-600 hover:border-blue-700 shadow-md hover:shadow-lg transform hover:scale-105"
+                    className="flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 active:scale-95 transition-all duration-200 font-semibold border-2 border-blue-600 hover:border-blue-700 shadow-md hover:shadow-lg text-sm sm:text-base"
                   >
-                    <Save size={18} />
+                    <Save size={16} className="sm:w-[18px] sm:h-[18px]" />
                     <span>{editingItem ? 'Atualizar' : 'Salvar'}</span>
                   </button>
                 </div>
